@@ -10,7 +10,7 @@ from sklearn.impute import SimpleImputer
 import acquire
 import warnings
 import pandas as pd
-
+df_iris=acquire.get_iris_data()
 
 # In[2]:
 
@@ -18,19 +18,8 @@ import pandas as pd
 df_iris.drop(columns=['species_id','measurement_id','Unnamed: 0'],inplace=True)
 
 
-# In[ ]:
-
 
 df_iris.rename(columns={'species_name':'species'},inplace=True)
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
 
 
 dummy_df_iris = pd.get_dummies(df_iris.species, dummy_na=False, drop_first=[True])
@@ -49,15 +38,6 @@ def prep_iris(df):
     return df_iris
 
 
-# In[ ]:
-
-
-prep_iris(df_iris1)
-
-
-# In[ ]:
-
-
 def clean_iris(df):
     df_iris=prep_iris(df)
     train, test = train_test_split(df_iris, test_size=.2, 
@@ -67,11 +47,6 @@ def clean_iris(df):
     
     return n_train, validate, test
 
-
-# In[ ]:
-
-
-clean_iris(df_iris1)
 
 
 # In[ ]:
