@@ -91,9 +91,9 @@ def prep_titanic(df):
 def split_titanic(df):
     df_titanic=prep_titanic(df)
     train, test = train_test_split(df_titanic, test_size=.2, 
-                               random_state=123, stratify=df_titanic['survived'])
+                               random_state=123, stratify=df_titanic[target])
     n_train, validate = train_test_split(train, test_size=.25, 
-                 random_state=123, stratify=train.survived)
+                 random_state=123, stratify=train.target)
     
     return n_train, validate, test
 
