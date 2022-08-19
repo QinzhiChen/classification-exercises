@@ -11,7 +11,7 @@ import pandas as pd
 # iris data
 def prep_iris(df):
     df_iris=acquire.get_iris_data()
-    df_iris.drop(columns=['species_id','measurement_id','Unnamed: 0'],inplace=True)
+    df_iris.drop(columns=['species_id','measurement_id'],inplace=True)
     df_iris.rename(columns={'species_name':'species'},inplace=True)
     dummy_df_iris= pd.get_dummies(df_iris.species, dummy_na=False, drop_first=[True])
     df_iris=pd.concat([df_iris,dummy_df_iris],axis=1)
@@ -31,7 +31,7 @@ def split_iris(df):
 
 def prep_titanic(df):
     df_titanic=acquire.get_titanic_data()
-    df_titanic.drop(columns=['Unnamed: 0','embarked','age','deck','class'],inplace=True)
+    df_titanic.drop(columns=['embarked','age','deck','class'],inplace=True)
     dummy_df_titanic = pd.get_dummies(df_titanic[['sex','embark_town']], dummy_na=False, drop_first=[True])
     df_titanic=pd.concat([df_titanic ,dummy_df_titanic],axis=1)
     return df_titanic
@@ -52,9 +52,9 @@ def prep_telco(df):
     df_telco=acquire.get_telco_data()
     df_telco.drop(columns=['internet_service_type_id','contract_type_id','payment_type_id',
                        ],inplace=True)
-    dummy_df_telco = pd.get_dummies(df_telco[['partner','dependents','phone_service','multiple_lines','online_security','online_backup','device_protection','tech_support','streaming_tv','streaming_movies','paperless_billing','churn','internet_service_type']], dummy_na=False, drop_first=[True])
+    dummy_df_telco = pd.get_dummies(df_telco[['partner','dependents','phone_service','multiple_lines','online_security','online_backup','device_protection','tech_support','streaming_tv','streaming_movies','paperless_billing','churn','internet_service_type','gender']], dummy_na=False, drop_first=[True])
     df_telco=pd.concat([df_telco ,dummy_df_telco],axis=1)
-    df_telco.drop(columns=['partner','dependents','phone_service','multiple_lines','online_security','online_backup','device_protection','tech_support','streaming_tv','streaming_movies','paperless_billing','churn','internet_service_type'],inplace=True)
+    df_telco.drop(columns=['partner','dependents','phone_service','multiple_lines','online_security','online_backup','device_protection','tech_support','streaming_tv','streaming_movies','paperless_billing','churn','internet_service_type','gender'],inplace=True)
     return df_telco
 
 
