@@ -31,7 +31,7 @@ def split_iris(df):
 
 def prep_titanic(df):
     df_titanic=acquire.get_titanic_data()
-    df_titanic.drop(columns=['embarked','age','deck','class'],inplace=True)
+    df_titanic.drop(columns=['embarked','deck','class','age'],inplace=True)
     dummy_df_titanic = pd.get_dummies(df_titanic[['sex','embark_town']], dummy_na=False, drop_first=[True])
     df_titanic=pd.concat([df_titanic ,dummy_df_titanic],axis=1)
     return df_titanic
@@ -39,6 +39,23 @@ def prep_titanic(df):
 
 def split_titanic(df):
     df_titanic=prep_titanic(df)
+    train, titanic_test = train_test_split(df_titanic, test_size=.2, 
+                               random_state=123, stratify=df_titanic['survived'])
+    titanic_train, titanic_validate = train_test_split(train, test_size=.25, 
+                 random_state=123, stratify=train.survived)
+    
+    return titanic_train, titanic_validate, titanic_test
+
+
+def prep_titanic_log(df):
+    df_titanic=acquire.get_titanic_data()
+    df_titanic.drop(columns=['embarked','deck','class'],inplace=True)
+    dummy_df_titanic = pd.get_dummies(df_titanic[['sex','embark_town']], dummy_na=False, drop_first=[True])
+    df_titanic=pd.concat([df_titanic ,dummy_df_titanic],axis=1)
+    return df_titanic
+
+def split_titanic_log(df):
+    df_titanic=prep_titanic_log(df)
     train, titanic_test = train_test_split(df_titanic, test_size=.2, 
                                random_state=123, stratify=df_titanic['survived'])
     titanic_train, titanic_validate = train_test_split(train, test_size=.25, 
